@@ -269,7 +269,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABg1Y9+9P8D1KJoeXDY9o8AAAAASUVORK5CYII=</Preview>
-  <Form>uBBH1CglZD8AACODCAAAAAAABADtW1uTosqyfjfC/2D0w3k4TiwVVDTOTEcgqKh4x+vLDlBAbsVFECT2j99Z
+  <Form>U7uB1HuCZD8AACODCAAAAAAABADtW1uTosqyfjfC/2D0w3k4TiwVVDTOTEcgqKh4x+vLDlBAbsVFECT2j99Z
 qNP2Tem1p1dMTxxnShEy8/sqMyvr0t3fh5Iub/z9YzaTy30/fcn5R0f+8TA97n3Z+muhoa0d7v9q
 2Z51ev+We+vRt9xc9vaajX6U/yrif99yTGD6gSf/QHLge6L5LTcKJFPb9OSjYBsy+iFRlFjZVKql
 OlmWi7X6Qw6JFiD3RQ2VHnKbnWZuPZB7YGzke7a5f0hoAtGRZzuy5x/PCnTg29ONaMqsZskIkwDR
@@ -330,14 +330,14 @@ Oqtu/qrA685D4YMyONHUXZpQPuVPhfhYxThxS50t5SrkJ1lJNQ/9TJc05k/pkprNP5AbP7e5n54f
 15vlj+RIB0hdPQYBfOfmvGfbZtIn3Dks/Hl9u6L1xvmAokHYXpJ5Oio4RQzf+5K9sx08GPd/bgdp
 yQ78j3XvQ1UMGKdZYpxK2NPwSV3Gkl9wSlUln6pYqjVPUsVuEHpWhp5/SbFq/efCf3OYvnNWxsJX
 1g7Ri7L0m2b1q5xGcsjJounvmJ28MW4m98vU/iI9lCPt9qB91q+UZ69vpkiqs1jYGFBv7iXeHlX/
-I1rO/7UA7YX87z+K7mXWTf/eUU7p6VIFH6ffP0+/cjU+qM6xoi/ePts+b9jv0Hy9bf/9w/b2cLkZ
-rDdVPi9ETYBLFZ03eX3FmLy7svoz5yTHu9y4vZj8ohPSQTS1rejj32oPzD+zi6LjgG6yrAUgTTlf
-//Jp+L2BkbL4VEsfnYmHJ8AvNxm/s3X5M+uHmHR2p+3ppzT8E0fZPnDwDwd++ah6O1lSjqlkPv/Q
-mErgvtyIujlJ3XTvLc20q6Y69dFV0+gJNdXi6RbLr7iGujvr3ozZPe3Pi9v8jJw7Q6cK3j26XzGA
-qdcUNwOZ1srnBfRqUsodriikCmxa+l8ywKmm7dvRTWMidWjrHwhtMonlkgBj/Nx1lNNFNg31rxjW
-d1cpNyP5ntanBC8J2/SEmCpY77H77+MzdGSEj/tYTTRt9R84WZARPsvcJnCld/+Ie7ttRv7pz7cf
-Hluiub//S6SsrIjAqokdHGvO/b+qBhqXXd0zUmk0fdl7eFxrTg5b2f/7f/96jXgVicvl/vE/w5h9
-D2Q/AAA=</Form>
+I1rO/7UA7YX87z+K7mXWTf/eUU7p6RKBXX3/PP3K1figOseKvnj7bPu8Yb9D8/W2/fcP29vD5Waw
+3lT5vBA1AS5VdN7k9RVj8u7K6s+ckxzvcuP2YvKLTkgH0dS2oo9/qz0w/8wuio4DusmyFoA05Xz9
+y6fh9wZGyuJTLX10Jh6eAL/cZPzO1uXPrB9i0tmdtqef0vBPHGX7wME/HPjlo+rtZEk5pirER8dU
+AvflRtTNSeqme29ppl011T+8aho9oaZaPN1i+RXXUHdn3Zsxu6f9eXGbn5FzZ+hUwbtH9ysGMPWa
+4mYg01r5vIBeTUq5wxWFVIFNS/9LBjjVtH07umlMpA5t/QOhTSaxXBJgjJ+7jnK6yKah/hXD+u4q
+5WYk39P6lOAlYZueEFMF6z12/318ho6M8HEfq4mmrf4DJwsywmeZ2wSu9O4fcW+3zcg//fn2w2NL
+NPf3f4mUlRURWDWxg2PNuf9X1UDjsqt7RiqNpi97D49rzclhK/t//+9frxGvInG53D/+B3NWDANk
+PwAA</Form>
   <Code><![CDATA[
 $Main1_Load={
 	#TODO: Initialize Form Controls here
@@ -643,6 +643,7 @@ $buttonADDocumentionReport_Click={
 	$paragraph = Add-WordText -WordDocument $wordDoc -Text "FOREST" -HeadingType Heading2 -Supress $true
 	$paragraph = Add-WordText -WordDocument $wordDoc -Text "CONFIGURATION" -HeadingType Heading3 -Supress $true
 	$forest = Import-Clixml -Path "$($curwkdir.text)\forest.xml"
+	$forest.forestmode = $forest.forestmode.value
 	$paragraph = Add-WordText -WordDocument $wordDoc -Text "Quest was able to read the forest $($forest.name) and pull the configuration contained in the table below." -Supress $true
 	$paragraph = Add-WordTable -WordDocument $wordDoc -DataTable $forest -Design MediumShading1Accent5 -Transpose -Supress $true -AutoFit Window
 	$paragraph = Add-WordText -WordDocument $wordDoc -Text "SCHEMA" -HeadingType Heading3 -Supress $true
@@ -651,6 +652,7 @@ $buttonADDocumentionReport_Click={
 	$paragraph = Add-WordTable -WordDocument $wordDoc -DataTable $schout -Design MediumShading1Accent5 -Transpose -Supress $true -AutoFit Window
 	$optfull = Import-Clixml -Path "$($curwkdir.text)\optionalfeatures.xml"
 	$optout = $optfull | select Name, Created, featureGUID, featurescope, enabledscopes, modified, protectedfromaccidentaldeletion, required*
+	
 	$otpfeatures = $optfull | select name, created, modified
 	$optfword = @()
 	foreach ($opt in $optfull)
@@ -669,6 +671,8 @@ $buttonADDocumentionReport_Click={
 	{
 		$paragraph = Add-WordParagraph -WordDocument $wordDoc -Supress $true
 		$paragraph = Add-WordText -WordDocument $wordDoc -Text "Details of the Optional Feature $($opt.name)." -Supress $true
+		#correct required forest mode
+		$opt.requiredforestmode = $opt.requiredforestmode.value
 		$paragraph = Add-WordTable -WordDocument $wordDoc -DataTable $opt -Design MediumShading1Accent5 -transpose -Supress $true -AutoFit Window
 	}
 	
@@ -680,7 +684,6 @@ $buttonADDocumentionReport_Click={
 	}
 	else
 	{
-		Output-Json -object $trusts -filename "Trusts"
 		$paragraph = Add-WordText -WordDocument $wordDoc -Text "TRUSTS" -HeadingType Heading3 -Supress $true
 		$paragraph = Add-WordText -WordDocument $wordDoc -Text "Quest was able to read the Trusts for Forest $($forest.name) and pull the Information contained in the table below." -Supress $true
 		$paragraph = Add-WordTable -WordDocument $wordDoc -DataTable $trusts -Design MediumShading1Accent5 -Transpose -Supress $true -AutoFit Window
@@ -700,8 +703,15 @@ $buttonADDocumentionReport_Click={
 	}
 	
 	$sitelink = Import-Clixml -Path "$($curwkdir.text)\sitelink.xml"
-	$SLoutWord = $sitelink | select name, cost, ReplicationFrequencyInMinutes, @{ Name = "SitesIncluded"; expression = { [string]::Join(";", ($_.sitesincluded)) } }
-		
+	if (($sitelink | measure).count -eq 1)
+	{
+		$SLoutWord = $sitelink | select name, cost, ReplicationFrequencyInMinutes, sitesincluded
+	}
+	else
+	{
+		$SLoutWord = $sitelink | select name, cost, ReplicationFrequencyInMinutes, @{ Name = "SitesIncluded"; expression = { [string]::Join(";", ($_.sitesincluded)) } }
+	}
+	
 	$paragraph = Add-WordText -WordDocument $wordDoc -Text "SITE LINKS" -HeadingType Heading3 -Supress $true
 	$paragraph = Add-WordText -WordDocument $wordDoc -Text "Quest was able to read the Site Link Information for Forest $($forest.name) and compile the Information in the section below." -Supress $true
 	$paragraph = Add-WordTable -WordDocument $wordDoc -DataTable $SloutWord -Design MediumShading1Accent5 -Supress $true -AutoFit Window
@@ -734,13 +744,21 @@ $buttonADDocumentionReport_Click={
 	
 	$paragraph = Add-WordText -WordDocument $wordDoc -Text "DOMAINS" -HeadingType Heading2 -Supress $true
 	$domains = Import-Clixml -Path "$($curwkdir.text)\domains.xml"
-	$adm = $domains | select netbiosname, dnsroot, domainmode, forestroot
+	$adm = $domains | select netbiosname, dnsroot, domainmode
+	$adm | Add-Member -MemberType NoteProperty -Name ForestRoot -Value $false
+	if ($adm.parentdomain -eq $null)
+	{
+		$adm.ForestRoot = $true
+	}
+	
+	$adm.domainmode = $adm.domainmode.value
 	$paragraph = Add-WordText -WordDocument $wordDoc -Text "Quest Discovered the following list of domains in the forest $($forest.name) and will detail each in a section section." -Supress $true
 	$paragraph = Add-WordTable -WordDocument $wordDoc -DataTable $adm -Design MediumShading1Accent5 -AutoFit Window -MaximumColumns 7
 	foreach ($domain in $domains)
 	{
 		$paragraph = Add-WordText -WordDocument $wordDoc -Text "DOMAIN: $($domain)" -HeadingType Heading3 -Supress $true
 		$paragraph = Add-WordText -WordDocument $wordDoc -Text "Quest was able to pull information from the domain $($domain) and compile it into the following table below." -Supress $true
+		$domain.domainmode = $domain.domainmode.value
 		$paragraph = Add-WordTable -WordDocument $wordDoc -DataTable $domain -Design MediumShading1Accent5 -transpose -Supress $true -AutoFit Window
 		$dcs = Import-Clixml -Path "$($curwkdir.text)\domaincontrollers.xml"
 		$dcs = $dcs |?{ $_.domain -eq $domain.dnsroot }
@@ -757,7 +775,6 @@ $buttonADDocumentionReport_Click={
 			$dns = $dcdns | ?{$_.computername -eq $dc.hostname}
 			if (($dns | measure).count -ne 0)
 			{
-				Output-Json -object $dns -filename "$($dc.name)-DNSSettings"
 				$paragraph = Add-WordText -WordDocument $wordDoc -Text "Domain Controller $($dc.name) DNS Server details." -Supress $true
 				$paragraph = Add-WordTable -WordDocument $wordDoc -DataTable $dns -Design MediumShading1Accent5 -transpose -Supress $true -AutoFit Window
 			}
@@ -767,18 +784,19 @@ $buttonADDocumentionReport_Click={
 				$paragraph = Add-WordText -WordDocument $wordDoc -Text "This Domain Controller is not a DNS Server." -Supress $true
 			}
 			
-			$DNSZones = Import-Clixml -Path "$($curwkdir.text)\dnszone.xml"
-			$DNSZones = $DNSZones |?{$_.domain -eq $domain.dnsroot}
-			$DNSZOut = $DNSZones | select ZoneName, ZoneType, replicationscope, IsDSIntegrated, IsReverseLookupZone, IsAutoCreated
-			$paragraph = Add-WordText -WordDocument $wordDoc -Text "DOMAIN DNS ZONES" -HeadingType Heading4 -Supress $true
-			$paragraph = Add-WordText -WordDocument $wordDoc -Text "Quest dicovered the following DNS Zones for the domain $($domain).  Details are included in the table below." -Supress $true
-			$paragraph = Add-WordTable -WordDocument $wordDoc -DataTable $DNSZout -Design MediumShading1Accent5 -Supress $true -AutoFit Window -MaximumColumns 6
 			
 			
 			
 		}
+		$DNSZones = Import-Clixml -Path "$($curwkdir.text)\dnszone.xml"
+		$DNSZones = $DNSZones | ?{ $_.domain -eq $domain.dnsroot }
+		$DNSZOut = $DNSZones | select ZoneName, ZoneType, replicationscope, IsDSIntegrated, IsReverseLookupZone, IsAutoCreated
+		$paragraph = Add-WordText -WordDocument $wordDoc -Text "DOMAIN DNS ZONES" -HeadingType Heading4 -Supress $true
+		$paragraph = Add-WordText -WordDocument $wordDoc -Text "Quest dicovered the following DNS Zones for the domain $($domain).  Details are included in the table below." -Supress $true
+		$paragraph = Add-WordTable -WordDocument $wordDoc -DataTable $DNSZout -Design MediumShading1Accent5 -Supress $true -AutoFit Window -MaximumColumns 6
+		
 		$ADPassPol = Import-Clixml -Path "$($curwkdir.text)\DomainPasswordPolicy.xml"
-		$ADPassPol = $ADPassPol | ?{ $_.domain -eq $domain.dnsrooot }
+		$ADPassPol = $ADPassPol | ?{ $_.domain -eq $domain.dnsroot }
 		$paragraph = Add-WordText -WordDocument $wordDoc -Text "DOMAIN PASSWORD POLICY" -HeadingType Heading4 -Supress $true
 		$paragraph = Add-WordText -WordDocument $wordDoc -Text "Quest dicovered the following default password policy for the domain $($domain)and below is a table of the details." -Supress $true
 		$paragraph = Add-WordTable -WordDocument $wordDoc -DataTable $ADPassPol -Design MediumShading1Accent5 -transpose -Supress $true -AutoFit Window
@@ -858,27 +876,27 @@ $buttonADDocumentionReport_Click={
 			}
 			else
 			{
-				if ($grp.groupcategory -eq 'Security' -and $grp.groupscope -eq 'Global')
+				if ($grp.groupcategory.value -eq 'Security' -and $grp.groupscope.value -eq 'Global')
 				{
 					$GS += 1
 				}
-				if ($grp.groupcategory -eq 'Distribution' -and $grp.groupscope -eq 'Global')
+				if ($grp.groupcategory.value -eq 'Distribution' -and $grp.groupscope.value -eq 'Global')
 				{
 					$GD += 1
 				}
-				if ($grp.groupcategory -eq 'Security' -and $grp.groupscope -eq 'DomainLocal')
+				if ($grp.groupcategory.value -eq 'Security' -and $grp.groupscope.value -eq 'DomainLocal')
 				{
 					$LS += 1
 				}
-				if ($grp.groupcategory -eq 'Distribution' -and $grp.groupscope -eq 'DomainLocal')
+				if ($grp.groupcategory.value -eq 'Distribution' -and $grp.groupscope.value -eq 'DomainLocal')
 				{
 					$LD += 1
 				}
-				if ($grp.groupcategory -eq 'Security' -and $grp.groupscope -eq 'Universal')
+				if ($grp.groupcategory.value -eq 'Security' -and $grp.groupscope.value -eq 'Universal')
 				{
 					$US += 1
 				}
-				if ($grp.groupcategory -eq 'Distribution' -and $grp.groupscope -eq 'Universal')
+				if ($grp.groupcategory.value -eq 'Distribution' -and $grp.groupscope.value -eq 'Universal')
 				{
 					$UD += 1
 				}

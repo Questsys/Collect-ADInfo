@@ -356,6 +356,32 @@ Write-Color -Text "Beginning Forest Data Collection" -Color Green
 $forest = Get-ADForest -Server $dc -Credential $Credential
 #gather forest Tombstone Lifetime
 $tombLT = (Get-ADObject -Server $dc -Credential $Credential -Identity "CN=Directory Service,CN=Windows NT,CN=Services,$((Get-ADRootDSE).configurationNamingContext)" -Properties tombstoneLifetime).tombstoneLifetime
+if ($tombLT -eq $null)
+{
+	#if no value is returned alternate process
+	$tombLT = ([adsi]"LDAP://CN=Directory Service,CN=Windows NT,CN=Services,$(([adsi]("LDAP://RootDSE")).configurationNamingContext)").tombstoneLifetime
+}
+if ($tombLT -eq $null)
+{
+	#unable to get value via powershell or ADSI report error
+	$tombLT = "Unable to read value"
+}
+
+#if Cross forest is empty replace with None
+if ($forest.crossforestreferences -eq $null)
+{
+	$forest.crossforestreferences = "None"
+}
+if ($forest.spnsuffixes -eq $null)
+{
+	$forest.spnsuffixes = "None"
+}
+
+if ($forest.upnsuffixes -eq $null)
+{
+	$forest.upnsuffixes = "None"
+}
+
 $forest | Add-Member -MemberType NoteProperty -Name TombstoneLifetime -Value $tombLT -Force
 $rslt = save-object -obj $forest -filename "forest.xml"
 
@@ -441,6 +467,7 @@ foreach ($dom in $forest.domains)
 	Write-Color -Text "Beginning Domain Controller Data Collection" -Color Green
 	foreach ($d in $domdc)
 	{
+		
 		Write-Color -Text "Processing Domain Controller ","$($d.hostname)" -Color Green,yellow
 		#get time sync details
 		$td = OutputTimeServerRegistryKeys -DCName $d.hostname
