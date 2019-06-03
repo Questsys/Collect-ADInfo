@@ -13,5 +13,6 @@
     <File Build="0" Shared="False" ReferenceFunction="Invoke-Send-data_ps1">Send-data.ps1</File>
     <File Build="0" ReferenceFunction="Show-Prefs_psf">Prefs.psf</File>
     <File Build="0" ReferenceFunction="Show-ValMod_psf">ValMod.psf</File>
+    <File Build="2">Schema.csv</File>
   </Files>
 </Project>

@@ -37,20 +37,28 @@ param
 #constants for reference
 #schema version table will need to be updated as new versions of server are released that modify the schema
 # check https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/cf266003-19e1-4144-a919-bf7adf21254f for latest data
-$schvertable = @()
 
-$os = @("Windows 2000 Server", "Windows Server 2003", "Windows Server 2003 R2", "Windows Server 2008", "Windows Server 2008 R2", "Windows Server 2012", "Windows Server 2012 R2", "Windows Server 2016/Server v1709", "Windows Server 2019/Server V1803/Server V1809")
-$ver = @("13", "30", "31", "44", "47", "56", "69", "87", "88")
-for ($i = 0; $i -le ($os.Length); $i++)
+#if the schema.csv file exists load table from file if not populate from data included in code
+if (Test-Path -Path ".\schema.csv")
 {
-	$sch = New-Object System.Management.Automation.PSObject
-	$sch | Add-Member -MemberType NoteProperty -Name OS -Value $null
-	$sch | Add-Member -MemberType NoteProperty -Name Version -Value $null
-	$sch.os = $os[$i]
-	$sch.version = $ver[$i]
-	$schvertable += $sch
+	$schvertable = Import-Csv -Path ".\schema.csv" -Header
 }
-
+else
+{
+	$schvertable = @()
+	
+	$os = @("Windows 2000 Server", "Windows Server 2003", "Windows Server 2003 R2", "Windows Server 2008", "Windows Server 2008 R2", "Windows Server 2012", "Windows Server 2012 R2", "Windows Server 2016/Server v1709", "Windows Server 2019/Server V1803/Server V1809")
+	$ver = @("13", "30", "31", "44", "47", "56", "69", "87", "88")
+	for ($i = 0; $i -le ($os.Length); $i++)
+	{
+		$sch = New-Object System.Management.Automation.PSObject
+		$sch | Add-Member -MemberType NoteProperty -Name OS -Value $null
+		$sch | Add-Member -MemberType NoteProperty -Name Version -Value $null
+		$sch.os = $os[$i]
+		$sch.version = $ver[$i]
+		$schvertable += $sch
+	}
+}
 Function Get-RegistryValue
 {
 	# Gets the specified registry value or $Null if it is missing
