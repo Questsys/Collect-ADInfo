@@ -34,31 +34,7 @@ param
 	[string]$OutputPath
 )
 
-#constants for reference
-#schema version table will need to be updated as new versions of server are released that modify the schema
-# check https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/cf266003-19e1-4144-a919-bf7adf21254f for latest data
 
-#if the schema.csv file exists load table from file if not populate from data included in code
-if (Test-Path -Path ".\schema.csv")
-{
-	$schvertable = Import-Csv -Path ".\schema.csv" -Header
-}
-else
-{
-	$schvertable = @()
-	
-	$os = @("Windows 2000 Server", "Windows Server 2003", "Windows Server 2003 R2", "Windows Server 2008", "Windows Server 2008 R2", "Windows Server 2012", "Windows Server 2012 R2", "Windows Server 2016/Server v1709", "Windows Server 2019/Server V1803/Server V1809")
-	$ver = @("13", "30", "31", "44", "47", "56", "69", "87", "88")
-	for ($i = 0; $i -le ($os.Length); $i++)
-	{
-		$sch = New-Object System.Management.Automation.PSObject
-		$sch | Add-Member -MemberType NoteProperty -Name OS -Value $null
-		$sch | Add-Member -MemberType NoteProperty -Name Version -Value $null
-		$sch.os = $os[$i]
-		$sch.version = $ver[$i]
-		$schvertable += $sch
-	}
-}
 Function Get-RegistryValue
 {
 	# Gets the specified registry value or $Null if it is missing
@@ -311,6 +287,33 @@ function load-mod ($module, $name)
 
 #clear the screen
 cls
+Write-Color -Text "Preparing Data for Discovery" -Color Green
+
+#constants for reference
+#schema version table will need to be updated as new versions of server are released that modify the schema
+# check https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/cf266003-19e1-4144-a919-bf7adf21254f for latest data
+
+#if the schema.csv file exists load table from file if not populate from data included in code
+if (Test-Path -Path ".\schema.csv")
+{
+	$schvertable = Import-Csv -Path ".\schema.csv" -Header 'OS','Version'
+}
+else
+{
+	$schvertable = @()
+	
+	$os = @("Windows 2000 Server", "Windows Server 2003", "Windows Server 2003 R2", "Windows Server 2008", "Windows Server 2008 R2", "Windows Server 2012", "Windows Server 2012 R2", "Windows Server 2016/Server v1709", "Windows Server 2019/Server V1803/Server V1809")
+	$ver = @("13", "30", "31", "44", "47", "56", "69", "87", "88")
+	for ($i = 0; $i -le ($os.Length); $i++)
+	{
+		$sch = New-Object System.Management.Automation.PSObject
+		$sch | Add-Member -MemberType NoteProperty -Name OS -Value $null
+		$sch | Add-Member -MemberType NoteProperty -Name Version -Value $null
+		$sch.os = $os[$i]
+		$sch.version = $ver[$i]
+		$schvertable += $sch
+	}
+}
 
 #test if powershell is correct version and operating system is correct version
 #test powershell
@@ -616,7 +619,7 @@ $rslt = save-object -obj $OUS -filename "OUS.xml"
 $rslt = save-object -obj $groups -filename "Groups.xml"
 $rslt = save-object -obj $users -filename "Users.xml"
 
-Write-Color -Text "Allresults saved to ", "$($OutputPath)", " in the Data Subdirectory" -Color Green, Yellow, Green
+Write-Color -Text "All results saved to ", "$($oldpath)", " in the Data Subdirectory" -Color Green, Yellow, Green
 
 
 
